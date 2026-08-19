@@ -1,5 +1,10 @@
 const TOKEN_KEY = 'authToken'
 const ACCOUNT_KEY = 'authAccount'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
+export function apiUrl(path) {
+  return `${API_BASE_URL}${path}`
+}
 
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY)
@@ -22,7 +27,7 @@ export function clearSession() {
 
 export async function apiFetch(path, options = {}, onUnauthorized) {
   const token = getToken()
-  const res = await fetch(path, {
+  const res = await fetch(apiUrl(path), {
     ...options,
     headers: {
       ...(options.headers || {}),

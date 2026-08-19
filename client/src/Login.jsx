@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { apiUrl } from './api'
 
 function Login({ onAuthSuccess }) {
   const [mode, setMode] = useState('login')
@@ -20,7 +21,7 @@ function Login({ onAuthSuccess }) {
     try {
       const path = mode === 'login' ? '/api/auth/login' : '/api/auth/signup'
       const body = mode === 'login' ? { email, password } : { name, email, password }
-      const res = await fetch(path, {
+      const res = await fetch(apiUrl(path), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
